@@ -31,14 +31,12 @@ func (f *Config) Format(entry *logrus.Entry) ([]byte, error) {
 
 	i, _ := logrus.ParseLevel(level)
 	emoji := emojisLevel[i]
-	l := level
-	m := entry.Message
 
 	color.NoColor = !f.Color
 	color := colors[i].SprintFunc()
 
-	l = color(level)
-	m = color(entry.Message)
+	l := color(level)
+	m := color(entry.Message)
 
 	replacer := strings.NewReplacer(
 		"%time%", entry.Time.Format(timestampFormat),
